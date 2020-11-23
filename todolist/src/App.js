@@ -1,7 +1,13 @@
 import "./App.css";
-
+import TaskList from "./components/TaskList";
+import InputTask from "./components/InputTask";
 function App() {
-  return <h1>AddNew Task</h1>;
+  return (
+    <>
+      <InputTask />
+      <TaskList />
+    </>
+  );
 }
 
 export default App;
