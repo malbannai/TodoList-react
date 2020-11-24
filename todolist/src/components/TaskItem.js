@@ -1,9 +1,15 @@
 import React from "react";
+import todolistStore from "../stores/todolistStore";
 
 const TaskItem = ({ item }) => {
   return (
     <div>
-      <h3>{item.task}</h3>
+      <label>{item.task}</label>
+      <input
+        type="checkbox"
+        onClick={() => todolistStore.changeStatus(item.id)}
+        checked={item.status}
+      />
     </div>
   );
 };
