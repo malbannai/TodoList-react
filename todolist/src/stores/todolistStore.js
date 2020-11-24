@@ -24,16 +24,15 @@ class ToDoListStore {
   };
 
   changePriortiy = async (itemId) => {
+    const priorities = {
+      High: "Low",
+      Low: "Medium",
+      Medium: "High",
+    };
     try {
       await axios.put(`http://localhost:8000/todos/${itemId}`);
       const priorityUpdate = this.items.find((item) => itemId === item.id);
-      if (priorityUpdate.priority === "Low") {
-        priorityUpdate.priority = "Medium";
-      } else if (priorityUpdate.priority === "Medium") {
-        priorityUpdate.priority = "High";
-      } else {
-        priorityUpdate.priority = "Low";
-      }
+      priorityUpdate.priority = priorities[priorityUpdate.priority];
     } catch (error) {
       console.log("Nothing was found!!!!");
     }
@@ -55,7 +54,6 @@ class ToDoListStore {
     } catch (error) {
       console.log("todolistStore -> addTask -> error", error);
     }
-    console.log(this.items);
   };
 
   // Moudhi 1-0 changeStatus

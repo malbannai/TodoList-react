@@ -12,9 +12,9 @@ const TaskItem = ({ item }) => {
         checked={item.status}
       />
       <button onClick={() => todolistStore.deleteTask(item.id)}>Delete</button>
-      <h3 onClick={() => todolistStore.changePriortiy(item.id)}>
+      <label onClick={() => todolistStore.changePriortiy(item.id)}>
         {item.priority}
-      </h3>
+      </label>
     </div>
   );
 };
