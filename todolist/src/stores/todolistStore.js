@@ -8,6 +8,7 @@ class ToDoListStore {
     makeObservable(this, {
       items: observable,
       fetchToDo: action,
+      addTask: action,
     });
   }
 
@@ -20,9 +21,13 @@ class ToDoListStore {
     }
   };
 
-  addTask = (task) => {
-    task.id = this.items[this.items.length - 1].id + 1;
-    this.items.push(task);
+  addTask = async (newItem) => {
+    try {
+      const response = await axios.post("http://localhost:8000/", newItem);
+      this.items.push(response.data);
+    } catch (error) {
+      console.log("todolistStore -> addTask -> error", error);
+    }
   };
 }
 
