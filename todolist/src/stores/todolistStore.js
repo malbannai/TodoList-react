@@ -9,6 +9,8 @@ class ToDoListStore {
       items: observable,
       fetchToDo: action,
       addTask: action,
+      deleteTask: action,
+      changePriortiy: action,
     });
   }
 
@@ -21,6 +23,31 @@ class ToDoListStore {
     }
   };
 
+  changePriortiy = async (itemId) => {
+    try {
+      await axios.put(`http://localhost:8000/todos/${itemId}`);
+      const priorityUpdate = this.items.find((item) => itemId === item.id);
+      if (priorityUpdate.priority === "Low") {
+        priorityUpdate.priority = "Medium";
+      } else if (priorityUpdate.priority === "Medium") {
+        priorityUpdate.priority = "High";
+      } else {
+        priorityUpdate.priority = "Low";
+      }
+    } catch (error) {
+      console.log("Nothing was found!!!!");
+    }
+  };
+
+  deleteTask = async (itemId) => {
+    try {
+      await axios.delete(`http://localhost:8000/todos/${itemId}`);
+      this.items = this.items.filter((item) => item.id !== itemId);
+    } catch (error) {
+      console.error("todolistStore -> fetchToDoList -> error", error);
+    }
+  };
+
   addTask = async (newItem) => {
     try {
       const response = await axios.post("http://localhost:8000/todos", newItem);
@@ -28,9 +55,10 @@ class ToDoListStore {
     } catch (error) {
       console.log("todolistStore -> addTask -> error", error);
     }
+    console.log(this.items);
   };
 
-  // Neeeeeeeeed to double check it!!!
+  // Moudhi 1-0 changeStatus
   changeStatus = async (itemId) => {
     try {
       await axios.put(`http://localhost:8000/todos/${itemId}`);

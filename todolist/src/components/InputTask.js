@@ -7,7 +7,7 @@ const InputTask = () => {
     id: 0,
     task: "",
     status: false,
-    priority: "",
+    priority: "Low",
   });
 
   const handleChange = (event) => {
@@ -27,12 +27,11 @@ const InputTask = () => {
         onChange={handleChange}
         type="text"
       />
-      <input
-        name="priority"
-        placeholder="Enter the Priority ..."
-        onChange={handleChange}
-        type="text"
-      />
+      <select name="priority" onChange={handleChange}>
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </select>
       <button onClick={handleSubmit}>Add New Task</button>
     </div>
   );

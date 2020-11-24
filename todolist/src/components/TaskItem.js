@@ -1,5 +1,6 @@
 import React from "react";
 import todolistStore from "../stores/todolistStore";
+import { observer } from "mobx-react";
 
 const TaskItem = ({ item }) => {
   return (
@@ -10,8 +11,12 @@ const TaskItem = ({ item }) => {
         onClick={() => todolistStore.changeStatus(item.id)}
         checked={item.status}
       />
+      <button onClick={() => todolistStore.deleteTask(item.id)}>Delete</button>
+      <h3 onClick={() => todolistStore.changePriortiy(item.id)}>
+        {item.priority}
+      </h3>
     </div>
   );
 };
 
-export default TaskItem;
+export default observer(TaskItem);
